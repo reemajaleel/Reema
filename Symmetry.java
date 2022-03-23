@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Symmetric
+class Symmetry
 {	
 	public static void main(String[] args)
 	{
