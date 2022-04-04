@@ -1,74 +1,112 @@
-//Define a class 'product' with data members pcode, pname and price. 
-//Create 3 object of the class and find the product having the lowest price.
+//Define a class ‘product’ with data members pcode, pname and price.
+//Create 3 objects of the class and find the product having the lowest price
 
 import java.util.*;
 
-class product
-{
-	int pcode;
+class Product{ 		//create a class product
+	int pcode;		//variable diclaration
+	double price;		
 	String pname;
-	double price;
-}
-	public void input()
-	{
-		Scanner in = new Scanner(System.in);
- 		System.out.println("Enter the product code: ");
-		pcode = in.nextInt();
- 		System.out.println("Enter the product name: ");
-		pname = in.nextInt();
-		System.out.println("Enter the price: ");
-		price = in.nextInt();
-	}
-	public void display()
-	{
-		System.out.println("Product code: "+pcode);
-		System.out.println("Product name: "+pname);
-		System.out.println("Product price: "+price);
-	}
-
-
-
-class LowestPrice
-{
-	public static void main(String[] args)
-	{
-		product1 = new product();
-		product2 = new product();
-		product3 = new product();
-		product1.input();
-		product1.display();
-		product2.input();
-		product2.display();
-		product3.input();
-		product3.display();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	void disp(){ 	 // method for display details
 		
+		System.out.println("Product Code: "+pcode+"\nProduct Name: "+pname+"\nProduct Price: "+price);		
+	     
+	}
+}
+
+public class LowestPrice { 		//main class
+	public static void main(String ar[]){ 	 //main function
+		Scanner ob=new Scanner(System.in);
+		Product p1=new Product();          //create 3 objects of Product class
+		Product p2=new Product();
+		Product p3=new Product();
+		
+		System.out.println("Enter the details of product 1");			//details of product 1
+		System.out.print("\nProduct code: ");
+		p1.pcode=ob.nextInt();
+		System.out.print("Product Name: ");
+		p1.pname=ob.next();
+		System.out.print("Product Price: ");
+		p1.price=ob.nextDouble();
+		System.out.println("-----------------------------");
+		
+		
+		System.out.println("Enter the details of product 2");			//details of product 2
+		System.out.print("\nProduct code: ");
+		p2.pcode=ob.nextInt();
+		System.out.print("Product Name: ");
+		p2.pname=ob.next();
+		System.out.print("Product Price: ");
+		p2.price=ob.nextDouble();
+		System.out.println("-----------------------------");
+		
+		
+		System.out.println("Enter the details of product 3");			//details of product 1
+		System.out.print("\nProduct code: ");
+		p3.pcode=ob.nextInt();
+		System.out.print("Product Name: ");
+		p3.pname=ob.next();
+		System.out.print("Product Price: ");
+		p3.price=ob.nextDouble();
+		System.out.println("-----------------------------\n");
+		
+		
+		
+		if(p1.price<p2.price){		//checking for minimum priced product
+	
+			if(p1.price<p3.price){
+				System.out.println("The product "+p1.pname+" is minimum price\n-------------------------");
+				p1.disp();
+			}
+			else{
+				System.out.println("The  product "+p3.pname+" is minimum price\n-------------------------");
+				p3.disp();
+			}	
+		}
+		else{
+		 
+			if(p2.price<p3.price){
+				System.out.println("The  product "+p2.pname+" is minimum price\n-------------------------");
+				p2.disp();
+			}
+			else{
+				System.out.println("The  product "+p3.pname+" is minimum price\n---------------------------");
+				p3.disp();
+			}	
+		}
+		
+		
+	}
 	
 
+}
 
+
+
+/*
+OUTPUT:
+Enter the details of product 1
+
+Product code: 1
+Product Name: Laptop
+Product Price: 45000
+-----------------------------
+Enter the details of product 2
+
+Product code: 2
+Product Name: Phone
+Product Price: 25000
+-----------------------------
+Enter the details of product 3
+
+Product code: 3
+Product Name: Camera
+Product Price: 100000
+-----------------------------
+
+The  product Phone is minimum price
+-------------------------
+Product Code: 2
+Product Name: Phone
+Product Price: 25000.0
+*/
