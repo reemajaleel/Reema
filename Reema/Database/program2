@@ -1,0 +1,563 @@
+ sudo mysql -u root -p
+[sudo] password for ksb: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.37-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Reema
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| employee        |
+| person          |
+| student         |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> create table order(cid int primary key, name varchar(15), age int);
+Query OK, 0 rows affected (0.33 sec)
+
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| customer        |
+| employee        |
+| person          |
+| student         |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> create table cust(oid int primary key, item varchar(15), cid int, constraint c1 foreign key(cid) references customer(cid));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| cust            |
+| customer        |
+| employee        |
+| person          |
+| student         |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> create table student(roll int primary key, name varchar(15), salary decimal);
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> create table stud(rollno int primary key, name varchar(15), age int);
+Query OK, 0 rows affected (0.25 sec)
+
+mysql> create table mark(rollno int, m1 int, m2 int, grade varchar(5), constraint r1 foreign key(rollno) references stud(rollno));
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| cust            |
+| customer        |
+| employee        |
+| mark            |
+| person          |
+| stud            |
+| student         |
++-----------------+
+7 rows in set (0.00 sec)
+
+mysql> desc stud;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc mark;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| rollno | int(11)    | YES  | MUL | NULL    |       |
+| m1     | int(11)    | YES  |     | NULL    |       |
+| m2     | int(11)    | YES  |     | NULL    |       |
+| grade  | varchar(5) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp(empid int primary key, name varchar(15), salary decimal);
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> create table qualification(empid int, qualif1 varchar(10), qualif2 varchar(10), qualif3 varchar(10), constraint e1 foreign key(empid) references emp(empid));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| cust            |
+| customer        |
+| emp             |
+| employee        |
+| mark            |
+| person          |
+| qualification   |
+| stud            |
+| student         |
++-----------------+
+9 rows in set (0.00 sec)
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc qualification;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int(11)     | YES  | MUL | NULL    |       |
+| qualif1 | varchar(10) | YES  |     | NULL    |       |
+| qualif2 | varchar(10) | YES  |     | NULL    |       |
+| qualif3 | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp add age int;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
+| age    | int(11)       | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp drop age;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table emp add age int first;
+Query OK, 0 rows affected (0.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| age    | int(11)       | YES  |     | NULL    |       |
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table emp drop age;
+Query OK, 0 rows affected (0.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc emp;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| empid  | int(11)       | NO   | PRI | NULL    |       |
+| name   | varchar(15)   | YES  |     | NULL    |       |
+| age    | int(11)       | YES  |     | NULL    |       |
+| salary | decimal(10,0) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table emp add last_name varchar(10) not null after age, add first_name varchar(10) null after last_name;
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | YES  |     | NULL    |       |
+| last_name  | varchar(10)   | NO   |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table emp modify last_name char(20);
+Query OK, 0 rows affected (0.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | YES  |     | NULL    |       |
+| last_name  | char(20)      | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp change last_name lname bigint;
+Query OK, 0 rows affected (0.70 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | YES  |     | NULL    |       |
+| lname      | bigint(20)    | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp modify age int not null  default 1;
+Query OK, 0 rows affected (0.41 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | NO   |     | 1       |       |
+| lname      | bigint(20)    | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp alter age set default 10;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | NO   |     | 10      |       |
+| lname      | bigint(20)    | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp alter age drop default;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | NO   |     | NULL    |       |
+| lname      | bigint(20)    | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp rename to employ;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> desc employ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| empid      | int(11)       | NO   | PRI | NULL    |       |
+| name       | varchar(15)   | YES  |     | NULL    |       |
+| age        | int(11)       | NO   |     | NULL    |       |
+| lname      | bigint(20)    | YES  |     | NULL    |       |
+| first_name | varchar(10)   | YES  |     | NULL    |       |
+| salary     | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> show tables;
++-----------------+
+| Tables_in_Reema |
++-----------------+
+| cust            |
+| customer        |
+| employ          |
+| employee        |
+| mark            |
+| person          |
+| qualification   |
+| stud            |
+| student         |
+| student1        |
++-----------------+
+10 rows in set (0.00 sec)
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | YES  |     | NULL    |       |
+| name    | varchar(15)  | YES  |     | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student add constraint n1 unique(name);
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student add constraint n2 primary key(roll_no);
+Query OK, 0 rows affected (0.49 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | NO   | PRI | NULL    |       |
+| name    | varchar(15)  | YES  | UNI | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student add constraint n3 check(roll_no>20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | NO   | PRI | NULL    |       |
+| name    | varchar(15)  | YES  | UNI | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student drop primary key;
+Query OK, 0 rows affected (0.82 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | NO   |     | NULL    |       |
+| name    | varchar(15)  | YES  | UNI | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table student add constraint c2 unique(roll_no, name, address, email);
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | NO   | MUL | NULL    |       |
+| name    | varchar(15)  | YES  | UNI | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student drop index c2;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int(11)      | NO   |     | NULL    |       |
+| name    | varchar(15)  | YES  | UNI | NULL    |       |
+| address | varchar(50)  | YES  |     | NULL    |       |
+| email   | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> desc stud;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table studd select rollno, name, age from stud;
+Query OK, 0 rows affected (0.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studd;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table if not exists studnt select * from stud;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studnt;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+mysql> desc cust;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| oid   | int(11)     | NO   | PRI | NULL    |       |
+| item  | varchar(15) | YES  |     | NULL    |       |
+| cid   | int(11)     | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table cust drop foreign key c1;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc cust;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| oid   | int(11)     | NO   | PRI | NULL    |       |
+| item  | varchar(15) | YES  |     | NULL    |       |
+| cid   | int(11)     | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+mysql> desc qualification;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int(11)     | YES  | MUL | NULL    |       |
+| qualif1 | varchar(10) | YES  |     | NULL    |       |
+| qualif2 | varchar(10) | YES  |     | NULL    |       |
+| qualif3 | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table qualification drop foreign key e1;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc qualification;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int(11)     | YES  | MUL | NULL    |       |
+| qualif1 | varchar(10) | YES  |     | NULL    |       |
+| qualif2 | varchar(10) | YES  |     | NULL    |       |
+| qualif3 | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+mysql> alter table qualification modify qualif3 int null;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc qualification;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int(11)     | YES  | MUL | NULL    |       |
+| qualif1 | varchar(10) | YES  |     | NULL    |       |
+| qualif2 | varchar(10) | YES  |     | NULL    |       |
+| qualif3 | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
