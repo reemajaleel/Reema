@@ -1,0 +1,279 @@
+mysql> use Reema;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table example1(rollno int, name varchar(10), age int, address varchar(50));
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> desc example1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rollno  | int(11)     | YES  |     | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into example1(rollno, name, age, address) values(1, 'Anu', 21, 'ABC');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into example1(rollno, name, age, address) values(2, 'Anamika', 25, 'ABCD');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into example1(rollno, name, age, address) values(3, 'Jiffin', 27, 'ABCDE');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from example1;
++--------+---------+------+---------+
+| rollno | name    | age  | address |
++--------+---------+------+---------+
+|      1 | Anu     |   21 | ABC     |
+|      2 | Anamika |   25 | ABCD    |
+|      3 | Jiffin  |   27 | ABCDE   |
++--------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select rollno, name from example1 where age=21;
++--------+------+
+| rollno | name |
++--------+------+
+|      1 | Anu  |
++--------+------+
+1 row in set (0.01 sec)
+
+mysql> select * from example1 where age=21;
++--------+------+------+---------+
+| rollno | name | age  | address |
++--------+------+------+---------+
+|      1 | Anu  |   21 | ABC     |
++--------+------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> create table example2(rollno int, name varchar(10), age int, address varchar(50));
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> desc example2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rollno  | int(11)     | YES  |     | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into example2 values(1, 'Adhi', 21, 'XYZ');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from example2;
++--------+------+------+---------+
+| rollno | name | age  | address |
++--------+------+------+---------+
+|      1 | Adhi |   21 | XYZ     |
++--------+------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into example2 values(2, 'Aparna', 22, 'WXYZ');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into example2 values(3, 'Anjana', 22, 'WXY');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from example2;
++--------+--------+------+---------+
+| rollno | name   | age  | address |
++--------+--------+------+---------+
+|      1 | Adhi   |   21 | XYZ     |
+|      2 | Aparna |   22 | WXYZ    |
+|      3 | Anjana |   22 | WXY     |
++--------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from example2 where age=22;
++--------+--------+------+---------+
+| rollno | name   | age  | address |
++--------+--------+------+---------+
+|      2 | Aparna |   22 | WXYZ    |
+|      3 | Anjana |   22 | WXY     |
++--------+--------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno, name from example2 where age=21;
++--------+------+
+| rollno | name |
++--------+------+
+|      1 | Adhi |
++--------+------+
+1 row in set (0.00 sec)
+
+mysql> select rollno, name from example2 where age=22;
++--------+--------+
+| rollno | name   |
++--------+--------+
+|      2 | Aparna |
+|      3 | Anjana |
++--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno, name from example1 where age=21 or  age=25;
++--------+---------+
+| rollno | name    |
++--------+---------+
+|      1 | Anu     |
+|      2 | Anamika |
++--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from example1 where age=21 or  age=25;
++--------+---------+------+---------+
+| rollno | name    | age  | address |
++--------+---------+------+---------+
+|      1 | Anu     |   21 | ABC     |
+|      2 | Anamika |   25 | ABCD    |
++--------+---------+------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select rollno, name from example1 where age=21 and rollno=1;
++--------+------+
+| rollno | name |
++--------+------+
+|      1 | Anu  |
++--------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from example1 where age=21 and rollno=1;
++--------+------+------+---------+
+| rollno | name | age  | address |
++--------+------+------+---------+
+|      1 | Anu  |   21 | ABC     |
++--------+------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select rollno, name from example1 where not age=21;
++--------+---------+
+| rollno | name    |
++--------+---------+
+|      2 | Anamika |
+|      3 | Jiffin  |
++--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from example1 where not age=21;
++--------+---------+------+---------+
+| rollno | name    | age  | address |
++--------+---------+------+---------+
+|      2 | Anamika |   25 | ABCD    |
+|      3 | Jiffin  |   27 | ABCDE   |
++--------+---------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> update example1 set age=20 where rollno=1;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from example1;
++--------+---------+------+---------+
+| rollno | name    | age  | address |
++--------+---------+------+---------+
+|      1 | Anu     |   20 | ABC     |
+|      2 | Anamika |   25 | ABCD    |
+|      3 | Jiffin  |   27 | ABCDE   |
++--------+---------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from example2;
++--------+--------+------+---------+
+| rollno | name   | age  | address |
++--------+--------+------+---------+
+|      1 | Adhi   |   21 | XYZ     |
+|      2 | Aparna |   22 | WXYZ    |
+|      3 | Anjana |   22 | WXY     |
++--------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from example2 where age=21;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from example2;
++--------+--------+------+---------+
+| rollno | name   | age  | address |
++--------+--------+------+---------+
+|      2 | Aparna |   22 | WXYZ    |
+|      3 | Anjana |   22 | WXY     |
++--------+--------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> delete from example2 where rollno=3;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from example2;
++--------+--------+------+---------+
+| rollno | name   | age  | address |
++--------+--------+------+---------+
+|      2 | Aparna |   22 | WXYZ    |
++--------+--------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> create table example3(rollno int primary key, name varchar(15) not null, age int not null check(0-99), address varchar(50),gender varchar(2) default'm'); 
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> desc example3;                                                     
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| rollno  | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| age     | int(11)     | NO   |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| gender  | varchar(2)  | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into example3(rollno, name, age, address) values(1, 'Avishna', 21,'aaa');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from example3;
++--------+---------+-----+---------+--------+
+| rollno | name    | age | address | gender |
++--------+---------+-----+---------+--------+
+|      1 | Avishna |  21 | aaa     | m      |
++--------+---------+-----+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into example3(rollno, name, age, address, gender) values(2, 'Ahishna', 21,'aaa', 'f');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from example3;                                               				   +--------+---------+-----+---------+--------+
+| rollno | name    | age | address | gender |
++--------+---------+-----+---------+--------+
+|      1 | Avishna |  21 | aaa     | m      |
+|      2 | Ahishna |  21 | aaa     | f      |
++--------+---------+-----+---------+--------+
+2 rows in set (0.01 sec)
+
+mysql> insert into example3(rollno, name, age, address, gender) values(3, 'Agnus', 23,'aaa', 'f');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from example3;                                               					   +--------+---------+-----+---------+--------+
+| rollno | name    | age | address | gender |
++--------+---------+-----+---------+--------+
+|      1 | Avishna |  21 | aaa     | m      |
+|      2 | Ahishna |  21 | aaa     | f      |
+|      3 | Agnus   |  23 | aaa     | f      |
++--------+---------+-----+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select rollno, name from example3 where age=21;
++--------+---------+
+| rollno | name    |
++--------+---------+
+|      1 | Avishna |
+|      2 | Ahishna |
++--------+---------+
+2 rows in set (0.00 sec)
+
+
