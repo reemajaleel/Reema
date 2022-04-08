@@ -9,7 +9,7 @@ class StringFunctions {
   
         // String in which a character to be searched.
         String str
-            = "GeeksforGeeks is a computer science portal";
+            = "";
   
         // Returns index of first occurrence of character.
         int firstIndex = str.indexOf('s');
