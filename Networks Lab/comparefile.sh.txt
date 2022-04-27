@@ -1,0 +1,11 @@
+$ cat duplicate_file.sh
+echo "Enter file 1:"
+read file1
+echo "Enter file 2:"
+read file2
+cmp $file1 $file2 > newfile
+x=` wc newfile | cut -d" " -f2 `
+if [` $x -eq 0 `]
+then
+rm -i $file2
+fi
