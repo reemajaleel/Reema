@@ -1,0 +1,25 @@
+import java.util.*;
+class myException extends Exception{
+public myException(String s){
+super(s);
+}
+}
+class Main{
+public static void main(String ar[]){
+String username="hasna";
+String password="Password";
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter Username:");
+String u=sc.next();
+System.out.print("Enter Password:");
+String p=sc.next();
+try{
+if((u.equals(username)) && (p.equals(password))){
+throw new myException("Authentication success");
+}
+else{
+throw new myException("Authentication Faild...!");
+}
+}
+catch(myException ex){
+System.out.print(ex.getMessage()+"\n");
